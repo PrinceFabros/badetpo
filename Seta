@@ -1,0 +1,230 @@
+/* Simple and clean style */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #fff8f8;
+  color: #222;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  padding: 10px 0;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  margin: 0 10px;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+nav a.active,
+nav a:hover {
+  background: #a00;
+  color: #fff;
+}
+
+main {
+  max-width: 800px;
+  margin: 80px auto 40px;
+  padding: 0 15px;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background: #000;
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.lead {
+  color: #555;
+  margin: 5px 0;
+}
+
+section {
+  margin-top: 20px;
+}
+
+.card,
+.grid .item {
+  background: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+footer {
+  text-align: center;
+  color: #555;
+  font-size: 14px;
+  margin-top: 30px;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+
+
+
+CSS
+
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prince — Simple Portfolio</title>
+  <link rel="stylesheet" href="seta_css.css">
+</head>
+<body>
+  <nav>
+    <a href="#personal-info" class="nav-link active">Personal Info</a>
+    <a href="#skills" class="nav-link">Skills</a>
+    <a href="#education" class="nav-link">Education</a>
+    <a href="#hobbies" class="nav-link">Hobbies</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
+
+  <main>
+    <section id="personal-info" class="hero">
+      <div class="avatar" style="background-image:url('profile/prince.jpg')"></div>
+      <div>
+        <h1>Prince Charles Arman S. Fabros</h1>
+        <p class="lead">Information Technology Student</p>
+        <p>I build simple, accessible web pages. Outside academics I play guitar and learn new tools.</p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="grid">
+        <div class="item">HTML & CSS</div>
+        <div class="item">Java / PHP</div>
+        <div class="item">UI/UX Basics</div>
+        <div class="item">MySQL</div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <div class="card">
+        <p><strong>Bachelor of Science in Information Technology</strong><br>Tarlac State University (2022–2026)</p>
+        <p><strong>Senior High:</strong> Mangatarem National High School (2020–2022)</p>
+      </div>
+    </section>
+
+    <section id="hobbies">
+      <h2>Hobbies</h2>
+      <div class="grid">
+        <div class="item">Playing Guitar</div>
+        <div class="item">Gaming</div>
+        <div class="item">Watching Movies</div>
+        <div class="item">Listening to Music</div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="card">
+        <p>Email: <a href="mailto:prncfabros02@gmail.com">prncfabros02@gmail.com</a></p>
+        <p>Phone: <a href="tel:+639692320747">+63 969 232 0747</a></p>
+      </div>
+    </section>
+
+    <footer>© 2025 Prince Charles Arman S. Fabros</footer>
+  </main>
+
+  <script src="seta_js.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+HTML
+
+
+
+
+
+
+
+// Smooth scroll for nav links
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Update active nav on scroll
+const sections = Array.from(document.querySelectorAll('main section'));
+window.addEventListener('scroll', () => {
+  const mid = window.scrollY + window.innerHeight / 3;
+  for (const sec of sections) {
+    const top = sec.offsetTop;
+    const bottom = top + sec.offsetHeight;
+    const id = '#' + sec.id;
+    const link = document.querySelector('.nav a[href="' + id + '"]');
+    if (mid >= top && mid < bottom) {
+      link && link.classList.add('active');
+    } else {
+      link && link.classList.remove('active');
+    }
+  }
+});
+
+
+
+
+
+
+JS
