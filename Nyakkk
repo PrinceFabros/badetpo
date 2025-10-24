@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopping Cart Discount App</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 320px;
+  }
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  button {
+    width: 100%;
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+  }
+  button:hover {
+    background: #0056b3;
+  }
+  .summary {
+    margin-top: 20px;
+    background: #f1f1f1;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  .summary p {
+    margin: 5px 0;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Shopping Cart Discount App</h2>
+
+    <label>Enter your name</label>
+    <input type="text" id="name" placeholder="Your name">
+
+    <label>Enter product name</label>
+    <input type="text" id="product" placeholder="Product name">
+
+    <label>Enter price</label>
+    <input type="number" id="price" placeholder="Price">
+
+    <label>Discount code? Yes or no</label>
+    <input type="text" id="hasDiscount" placeholder="Yes or No">
+
+    <label>Discount code (case sensitive)</label>
+    <input type="text" id="discountCode" placeholder="Example: Discount10">
+
+    <button onclick="calculateTotal()">Calculate Total</button>
+
+    <div class="summary" id="summary"></div>
+  </div>
+
+  <script>
+    function calculateTotal() {
+      const name = document.getElementById("name").value.trim();
+      const product = document.getElementById("product").value.trim();
+      const price = parseFloat(document.getElementById("price").value);
+      const hasDiscount = document.getElementById("hasDiscount").value.trim().toLowerCase();
+      const discountCode = document.getElementById("discountCode").value.trim();
+      const summary = document.getElementById("summary");
+
+      if (!name || !product || isNaN(price)) {
+        summary.innerHTML = "<p style='color:red;'>Please fill out all fields correctly.</p>";
+        return;
+      }
+
+      let total = price;
+      let discountMessage = "No discount applied.";
+
+      if (hasDiscount === "yes") {
+        if (discountCode === "Discount10") {
+          total = price * 0.9; // Apply 10% discount
+          discountMessage = "Valid code applied (10% off).";
+        } else {
+          discountMessage = "Invalid Code!";
+        }
+      }
+
+      summary.innerHTML = `
+        <h3>Order Summary</h3>
+        <p><b>Customer:</b> ${name}</p>
+        <p><b>Product:</b> ${product}</p>
+        <p><b>Price:</b> ₱${price.toFixed(2)}</p>
+        <p><b>Discount:</b> ${discountMessage}</p>
+        <p><b>Total Cost:</b> ₱${total.toFixed(2)}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
